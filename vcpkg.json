@@ -1,0 +1,7 @@
+{
+  "name": "template-cmake",
+  "version-string": "1.0.0",
+  "dependencies": [
+  ],
+  "builtin-baseline": "latest"
+}
