@@ -27,3 +27,9 @@ target_link_libraries(NovaCore
         Nova::Logger
         cglm::cglm
 )
+
+target_compile_definitions(NovaCore
+    PRIVATE
+        $<$<CONFIG:Debug>:BUILD_DEBUG>
+        $<$<CONFIG:Release>:BUILD_RELEASE>
+)
