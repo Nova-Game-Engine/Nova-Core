@@ -1,5 +1,5 @@
-#include "core.h"
-#include "structs.hpp"
+#include "Nova/Core/core.h"
+#include "Nova/Core/structs.hpp"
 
 Core::Core(): _l("Cmake Template") {
 }
