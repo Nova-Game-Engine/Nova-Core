@@ -62,7 +62,7 @@ namespace Nova::Core {
     #endif
 
     #if NOVA_CORE_LOGGING
-        #define NOVA_LOG_DEF(name) Nova::VL::Logger oLogger{name};
+        #define NOVA_LOG_DEF(name) Nova::Core::Logger oLogger{name};
     #else
         #define NOVA_LOG_DEF(name)
     #endif
