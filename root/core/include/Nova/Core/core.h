@@ -1,33 +1,19 @@
 #ifndef CORE_HPP
 #define CORE_HPP
 
+// Patch i did in Nova Desktop (since it isn't Nova desktop dependant it's okay)
+
 #include <nova/logger/logger.hpp>
-
-
-class Core {
-    private:
-        Nova::Logger _l;
-    public:
-        Core();
-        ~Core();
-
-        void load();
-        void unload();
-};
-
-struct ModuleContext {
-    Nova::Logger logger = Nova::Logger("Module");
-
-};
+#include <fmt/format.h>
+#include <string_view>
 
 namespace Nova::Core {
     #define NOVA_CORE_LOGGING true
 
     #if NOVA_CORE_LOGGING
-    class Logger {
-    private:
-        Nova::Logger log;
 
+    class Logger {
+        Nova::Logger log;
     public:
         explicit Logger(std::string_view name) : log(name.data()) {}
 
@@ -51,66 +37,62 @@ namespace Nova::Core {
             log.debug(fmt::format(fmtStr, std::forward<Args>(args)...));
         }
     };
+
     #else
-    class NullLogger {
-    private:
 
-
+    class Logger {
     public:
-        explicit Logger() {}
+        explicit Logger(std::string_view = {}) {}
 
         template<typename... Args>
-        inline void Info(fmt::format_string<Args...> fmtStr, Args&&... args) {
-            log.info(fmt::format(fmtStr, std::forward<Args>(args)...));
-        }
+        inline void Info(fmt::format_string<Args...>, Args&&...) {}
 
         template<typename... Args>
-        inline void Warn(fmt::format_string<Args...> fmtStr, Args&&... args) {
-            log.warn(fmt::format(fmtStr, std::forward<Args>(args)...));
-        }
+        inline void Warn(fmt::format_string<Args...>, Args&&...) {}
 
         template<typename... Args>
-        inline void Error(fmt::format_string<Args...> fmtStr, Args&&... args) {
-            log.error(fmt::format(fmtStr, std::forward<Args>(args)...));
-        }
+        inline void Error(fmt::format_string<Args...>, Args&&...) {}
 
         template<typename... Args>
-        inline void Debug(fmt::format_string<Args...> fmtStr, Args&&... args) {
-            log.debug(fmt::format(fmtStr, std::forward<Args>(args)...));
-        }
+        inline void Debug(fmt::format_string<Args...>, Args&&...) {}
     };
+
     #endif
 
+    #define NOVA_INFO(logger, fmt, ...)  (logger).Info(fmt, ##__VA_ARGS__)
+    #define NOVA_WARN(logger, fmt, ...)  (logger).Warn(fmt, ##__VA_ARGS__)
+    #define NOVA_ERROR(logger, fmt, ...) (logger).Error(fmt, ##__VA_ARGS__)
+    #define NOVA_DEBUG(logger, fmt, ...) (logger).Debug(fmt, ##__VA_ARGS__)
 
-    #if NOVA_CORE_LOGGING
-        #define NOVA_INFO(logger, fmt, ...)  (logger).Info(fmt, ##__VA_ARGS__)
-        #define NOVA_WARN(logger, fmt, ...)  (logger).Warn(fmt, ##__VA_ARGS__)
-        #define NOVA_ERROR(logger, fmt, ...) (logger).Error(fmt, ##__VA_ARGS__)
-        #define NOVA_DEBUG(logger, fmt, ...) (logger).Debug(fmt, ##__VA_ARGS__)
-        #define NINFO(fmt, ...) NOVA_INFO(oLogger, fmt, ##__VA_ARGS__)
-    #else
-        #define NOVA_INFO(logger, fmt, ...)  (void)0
-        #define NOVA_WARN(logger, fmt, ...)  (void)0
-        #define NOVA_ERROR(logger, fmt, ...) (void)0
-        #define NOVA_DEBUG(logger, fmt, ...) (void)0
-    #endif
+    #define NOVA_LOG_DEF(name) \
+        inline static Nova::Core::Logger& oLogger() { \
+            static Nova::Core::Logger logger{name}; \
+            return logger; \
+        }
 
-    #if NOVA_CORE_LOGGING
-        #define NOVA_LOG_DEF(name) Nova::Core::Logger oLogger{name};
-    #else
-        #define NOVA_LOG_DEF(name) 
-    #endif
+    #define NINFO(fmt, ...)  oLogger().Info(fmt, ##__VA_ARGS__)
+    #define NWARN(fmt, ...)  oLogger().Warn(fmt, ##__VA_ARGS__)
+    #define NERROR(fmt, ...) oLogger().Error(fmt, ##__VA_ARGS__)
+    #define NDEBUG(fmt, ...) oLogger().Debug(fmt, ##__VA_ARGS__)
 
     class Object {
-        protected:
-
-        public:
-            virtual ~Object() = default;
-
-        public:
+    public:
+        virtual ~Object() = default;
     };
+}
 
-    
+class Core {
+    Nova::Logger _l;
+public:
+    Core();
+    ~Core();
+
+    void load();
+    void unload();
+};
+
+struct ModuleContext {
+    Nova::Logger logger{"Module"};
 };
 
 namespace N = Nova;
