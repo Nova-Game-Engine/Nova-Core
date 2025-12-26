@@ -1,9 +1,10 @@
 #pragma once
 
+#include <nova/logger/logger.hpp>
 
 #if NOVA_CORE_LOGGING
 
-    #define NOVA_INFO(logger, fmt, ...)   (logger).Info((fmt), ##__VA_ARGS__)
+    #define NOVA_INFO(logger, fmt, ...)  (logger).Info((fmt), ##__VA_ARGS__)
     #define NOVA_WARN(logger, fmt, ...)   (logger).Warn((fmt), ##__VA_ARGS__)
     #define NOVA_ERROR(logger, fmt, ...)  (logger).Error((fmt), ##__VA_ARGS__)
     #define NOVA_DEBUG(logger, fmt, ...)  (logger).Debug((fmt), ##__VA_ARGS__)

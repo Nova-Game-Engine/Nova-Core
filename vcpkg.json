@@ -1,10 +1,9 @@
 {
   "name": "nova-core",
-  "version-string": "1.0.0",
+  "version-string": "1.0.1",
   "dependencies": [
     "cglm",
     "spdlog",
     "fmt"
-  ],
-  "builtin-baseline": "e93bf5796351d422408a2e3ebf88dce98151ae45"
+  ]
 }
