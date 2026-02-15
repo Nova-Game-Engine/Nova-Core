@@ -60,4 +60,8 @@
 #endif
 
 
-#define NOVA_LOG_DEF(name) ::Nova::Core::Logger oLogger{(name)}
+#define NOVA_LOG_DEF(name) \
+    inline static Nova::Core::Logger& oLogger() { \
+        static Nova::Core::Logger logger{name}; \
+        return logger; \
+    }
