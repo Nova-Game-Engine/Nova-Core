@@ -17,6 +17,9 @@ namespace Nova::Core {
                 info.set(std::forward<Args>(args)...);
                 return *this;
             }
+            inline T & get() {
+                return info;
+            }
             T build() && {
                 return std::move(info);
             };
