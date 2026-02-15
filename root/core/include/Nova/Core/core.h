@@ -3,7 +3,9 @@
 #include "log.h"
 #include "base.h"
 
-NOVA_LOG_DEF("Core")
+#ifndef NOVA_LOGGING
+    #define NOVA_LOGGING 1
+#endif
 
 #ifndef NOVA_DEBUGGING
     #define NOVA_DEBUGGING 1
