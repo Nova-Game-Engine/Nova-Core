@@ -2,6 +2,8 @@
 
 #include "log.h"
 #include "base.h"
+#include "macros.h"
+#include "structs.hpp"
 
 #ifndef NOVA_LOGGING
     #define NOVA_LOGGING 1
