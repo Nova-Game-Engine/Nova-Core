@@ -83,6 +83,10 @@ namespace Nova::Core {
         void normalize() {
             glm_vec2_normalize(v);
         }
+
+        float x() const { return v[0]; }
+        float y() const { return v[1]; }
+        
     };
 
     struct Vec3 {
@@ -161,6 +165,10 @@ namespace Nova::Core {
         void normalize() {
             glm_vec3_normalize(v);
         }
+
+        float x() const { return v[0]; }
+        float y() const { return v[1]; }
+        float z() const { return v[2]; }
     };
 
     struct alignas(16) Vec4 {
@@ -239,6 +247,11 @@ namespace Nova::Core {
         void normalize() {
             glm_vec4_normalize(v);
         }
+
+        float x() const { return v[0]; }
+        float y() const { return v[1]; }
+        float z() const { return v[2]; }
+        float w() const { return v[3]; }
     };
 
     struct alignas(16) Mat4 {
@@ -357,6 +370,8 @@ namespace Nova::Core {
             return out;
         }
 
+        
+
     };
 
     struct alignas(16) Quat {
@@ -448,6 +463,8 @@ namespace Nova::Core {
             glm_euler_angles(mat.m, out.v);
             return out;
         }
+
+
     };
 
     struct Transform {
@@ -503,6 +520,12 @@ namespace Nova::Core {
         Vec3 right() const {
             return rotation * Vec3(1.0f, 0.0f, 0.0f);
         }
+
+        // Getters
+        Vec3 getPosition() const { return position; }
+        Quat getRotation() const { return rotation; }
+        Vec3 getScale() const { return scale; }
+
     };
 
     // other things are included in cglm and thus don't need redefinitio
