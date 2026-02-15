@@ -16,10 +16,10 @@
 
 #else
 
-    #define NOVA_INFO(logger, fmt, ...)   (logger).Info((fmt), ##__VA_ARGS__)
-    #define NOVA_WARN(logger, fmt, ...)   (logger).Warn((fmt), ##__VA_ARGS__)
-    #define NOVA_ERROR(logger, fmt, ...)  (logger).Error((fmt), ##__VA_ARGS__)
-    #define NOVA_DEBUG(logger, fmt, ...)  (logger).Debug((fmt), ##__VA_ARGS__)
+    #define NOVA_INFO(logger, fmt, ...)   (logger).Info((fmt), __FILE__, __LINE__, ##__VA_ARGS__)
+    #define NOVA_WARN(logger, fmt, ...)   (logger).Warn((fmt), __FILE__, __LINE__, ##__VA_ARGS__)
+    #define NOVA_ERROR(logger, fmt, ...)  (logger).Error((fmt), __FILE__, __LINE__, ##__VA_ARGS__)
+    #define NOVA_DEBUG(logger, fmt, ...)  (logger).Debug((fmt), __FILE__, __LINE__, ##__VA_ARGS__)
 
         #define NINFO(fmt, ...)  oLogger().Info(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
         #define NWARN(fmt, ...)  oLogger().Warn(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
