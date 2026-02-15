@@ -61,25 +61,7 @@ namespace Nova::Core {
 
     #endif
 
-    #ifndef NOVA_LOGGING_DISABLE_LOW
 
-        #define NOVA_INFO(logger, fmt, ...)  (logger).Info(fmt, __FILE__, __LINE__,##__VA_ARGS__)
-        #define NOVA_WARN(logger, fmt, ...)  (logger).Warn(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-        #define NOVA_ERROR(logger, fmt, ...) (logger).Error(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-        #define NOVA_DEBUG(logger, fmt, ...) (logger).Debug(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-
-        #define NOVA_LOG_DEF(name) \
-            inline static Nova::Core::Logger& oLogger() { \
-                static Nova::Core::Logger logger{name}; \
-                return logger; \
-            }
-
-        #define NINFO(fmt, ...)  oLogger().Info(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-        #define NWARN(fmt, ...)  oLogger().Warn(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-        #define NERROR(fmt, ...) oLogger().Error(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-        #define NDEBUG(fmt, ...) oLogger().Debug(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-
-    #endif
 }
 
 
