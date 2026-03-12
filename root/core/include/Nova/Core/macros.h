@@ -65,3 +65,24 @@
         static Nova::Core::Logger logger{name}; \
         return logger; \
     }
+
+
+
+#define NOVA_ASSERT(expr) \
+    do { if (!(expr)) ::Nova::Core::assertFail(#expr, nullptr); } while(0)
+
+
+#define NOVA_ASSERT_MSG(expr, msg) \
+    do { if (!(expr)) ::Nova::Core::assertFail(#expr, msg); } while(0)
+
+
+#define NOVA_PANIC(msg) \
+    ::Nova::Core::assertFail("PANIC", msg)
+
+#ifdef N_DEBUG
+    #define NOVA_DASSERT(expr)          do {} while(0)
+    #define NOVA_DASSERT_MSG(expr, msg) do {} while(0)
+#else
+    #define NOVA_DASSERT(expr)          NOVA_ASSERT(expr)
+    #define NOVA_DASSERT_MSG(expr, msg) NOVA_ASSERT_MSG(expr, msg)
+#endif
