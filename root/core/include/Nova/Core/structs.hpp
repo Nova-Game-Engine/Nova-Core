@@ -171,8 +171,8 @@ namespace Nova::Core {
         float z() const { return v[2]; }
     };
 
-    struct alignas(16) Vec4 {
-        alignas(16) vec4 v;
+    struct Vec4 {
+        vec4 v;
 
         Vec4() { glm_vec4_zero(v); }
         Vec4(float x, float y, float z, float w) {
@@ -254,8 +254,8 @@ namespace Nova::Core {
         float w() const { return v[3]; }
     };
 
-    struct alignas(16) Mat4 {
-        alignas(16) mat4 m;
+    struct Mat4 {
+        mat4 m;
 
         Mat4() {
             glm_mat4_identity(m);
@@ -374,8 +374,8 @@ namespace Nova::Core {
 
     };
 
-    struct alignas(16) Quat {
-        alignas(16) versor q;
+    struct Quat {
+        versor q;
 
         Quat() {
             glm_quat_identity(q);
