@@ -1,32 +1,7 @@
 #pragma once
 
-#include <nova/logger/logger.hpp>
 
-#ifdef NOVA_CORE_LOGGING_DISABLE
 
-    #define NOVA_INFO(logger, fmt, ...)   ((void)0)
-    #define NOVA_WARN(logger, fmt, ...)   ((void)0)
-    #define NOVA_ERROR(logger, fmt, ...)  ((void)0)
-    #define NOVA_DEBUG(logger, fmt, ...)  ((void)0)
-
-    #define NINFO(fmt, ...)    ((void)0)
-    #define NWARN(fmt, ...)    ((void)0)
-    #define NERROR(fmt, ...)   ((void)0)
-    #define NDEBUG(fmt, ...)   ((void)0)
-
-#else
-
-    #define NOVA_INFO(logger, fmt, ...)   (logger).Info((fmt), __FILE__, __LINE__, ##__VA_ARGS__)
-    #define NOVA_WARN(logger, fmt, ...)   (logger).Warn((fmt), __FILE__, __LINE__, ##__VA_ARGS__)
-    #define NOVA_ERROR(logger, fmt, ...)  (logger).Error((fmt), __FILE__, __LINE__, ##__VA_ARGS__)
-    #define NOVA_DEBUG(logger, fmt, ...)  (logger).Debug((fmt), __FILE__, __LINE__, ##__VA_ARGS__)
-
-        #define NINFO(fmt, ...)  oLogger().Info(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-        #define NWARN(fmt, ...)  oLogger().Warn(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-        #define NERROR(fmt, ...) oLogger().Error(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-        #define NDEBUG(fmt, ...) oLogger().Debug(fmt, __FILE__, __LINE__, ##__VA_ARGS__)
-
-#endif
 
 #if defined(__clang__) || defined(__GNUC__)
     #define NOVA_INTERNAL_LOW [[deprecated("Internal use only")]]
@@ -41,7 +16,7 @@
 #endif
 
 
-// In your common header
+
 #if defined(__clang__) || defined(__GNUC__)
     #define NOVA_SUPPRESS_INTERNAL_BEGIN \
         _Pragma("GCC diagnostic push") \
@@ -59,12 +34,6 @@
     #define NOVA_SUPPRESS_INTERNAL_END
 #endif
 
-
-#define NOVA_LOG_DEF(name) \
-    inline static Nova::Core::Logger& oLogger() { \
-        static Nova::Core::Logger logger{name}; \
-        return logger; \
-    }
 
 
 
