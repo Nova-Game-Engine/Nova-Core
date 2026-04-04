@@ -24,7 +24,6 @@ target_compile_features(NovaCore PUBLIC cxx_std_20)
 target_link_libraries(NovaCore
     PUBLIC
         fmt::fmt
-        Nova::Logger
         cglm::cglm
 )
 
