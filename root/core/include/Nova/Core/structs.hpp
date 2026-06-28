@@ -7,6 +7,12 @@
 #include <cglm/types.h>
 #include <cglm/vec3.h>
 
+#if defined(__AVX__)
+    #define NOVA_MAT4_ALIGN 32
+#else
+    #define NOVA_MAT4_ALIGN 16
+#endif
+
 // just a wrapper for cglm
 namespace Nova::Core {
     struct Vec2 {
@@ -171,7 +177,7 @@ namespace Nova::Core {
         float z() const { return v[2]; }
     };
 
-    struct Vec4 {
+    struct alignas(16) Vec4 {
         alignas(16) vec4 v;
 
         Vec4() { glm_vec4_zero(v); }
@@ -254,7 +260,7 @@ namespace Nova::Core {
         float w() const { return v[3]; }
     };
 
-    struct Mat4 {
+    struct alignas(NOVA_MAT4_ALIGN) Mat4 {
         mat4 m;
 
         Mat4() {
