@@ -172,7 +172,7 @@ namespace Nova::Core {
     };
 
     struct Vec4 {
-        vec4 v;
+        alignas(16) vec4 v;
 
         Vec4() { glm_vec4_zero(v); }
         Vec4(float x, float y, float z, float w) {

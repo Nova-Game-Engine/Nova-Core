@@ -1,0 +1,1 @@
+CPMAddPackage("gh:rhackerd/Nova-Log#main")
